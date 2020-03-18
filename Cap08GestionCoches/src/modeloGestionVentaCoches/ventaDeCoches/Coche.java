@@ -101,4 +101,11 @@ public class Coche extends Entidad implements Serializable {
 		return venta;
 	}
 
+	@Override
+	public String toString() {
+		return  bastidor;
+	}
+
+	
+
 }

@@ -20,13 +20,18 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import modeloGestionVentaCoches.utils.CacheImagenes;
+import modeloGestionVentaCoches.ventaDeCoches.Cliente;
 import modeloGestionVentaCoches.ventaDeCoches.Coche;
-import modeloGestionVentaCoches.ventaDeCoches.Fabricante;
+import modeloGestionVentaCoches.ventaDeCoches.Concesionario;
+import modeloGestionVentaCoches.ventaDeCoches.Venta;
+import modeloGestionVentaCoches.ventaDeCoches.controladores.ClienteControlador;
 import modeloGestionVentaCoches.ventaDeCoches.controladores.CocheControlador;
-import modeloGestionVentaCoches.ventaDeCoches.controladores.FabricanteControlador;
+import modeloGestionVentaCoches.ventaDeCoches.controladores.ConcesionarioControlador;
+import modeloGestionVentaCoches.ventaDeCoches.controladores.VentaControlador;
 
 
-public class PanelGestionCoche extends JPanel {
+
+public class PanelGestionVenta extends JPanel {
 
 	public static int LOAD_FIRST = 0;
 	public static int LOAD_PREV = 1;
@@ -38,21 +43,20 @@ public class PanelGestionCoche extends JPanel {
 	
 	
 	JTextField jtfId = new JTextField(5);	
-	JTextField jtfBastidor = new JTextField(40);
-	JTextField jtfModelo = new JTextField(40);
-	JTextField jtfColor = new JTextField(20);
-	JComboBox<Fabricante> jcbIdFab = new JComboBox<Fabricante>();
+	JComboBox<Cliente> jcbCliente = new JComboBox<Cliente>();
+	JComboBox<Concesionario> jcbConcesionario = new JComboBox<Concesionario>();
+	JComboBox<Coche> jcbCoche = new JComboBox<Coche>();
+	JTextField jtfFecha = new JTextField(20);
+	JTextField jtfPrecio = new JTextField(20);
 	
-	
-	
-	Coche actual = null;
+	Venta actual = null;
 	
 	
 	/**
 	 * 
 	 */
-	public PanelGestionCoche () {
-		actual = CocheControlador.getControlador().findFirst();
+	public PanelGestionVenta () {
+		actual = VentaControlador.getControlador().findFirst();
 		construir();
 		cargarDatosActual();
 	}
@@ -89,60 +93,83 @@ public class PanelGestionCoche extends JPanel {
 	    c.anchor = GridBagConstraints.WEST;
 		this.add(jtfId, c);
 		
-		// Inclusiï¿½n del campo "IdFab"
-		List<Fabricante> fabricantes = FabricanteControlador.getControlador().findAll();
+		// Inclusiï¿½n del campo "IdCliente"
+		List<Cliente> clientes = ClienteControlador.getControlador().findAll();
 		
-		for (Fabricante f : fabricantes) {
-			jcbIdFab.addItem(f);
+		for (Cliente cli : clientes) {
+			jcbCliente.addItem(cli);
 		}
 		
 		c.gridx = 0;
 	    c.gridy = 2;
 	    c.anchor = GridBagConstraints.EAST;
-	    this.add(new JLabel("Id Fabricante: "), c);
+	    this.add(new JLabel("Cliente: "), c);
 	    
 		c.gridx = 1;
 	    c.gridy = 2;
 	    c.anchor = GridBagConstraints.WEST;
-		this.add(jcbIdFab, c);
+		this.add(jcbCliente, c);
 		
-		// Inclusiï¿½n del campo "Bastidor"
+		// Inclusiï¿½n del campo "IdConcesionario"
+		List<Concesionario> concesionarios = ConcesionarioControlador.getControlador().findAll();
+		
+		for (Concesionario conc : concesionarios) {
+			jcbConcesionario.addItem(conc);
+		}
+		
 		c.gridx = 0;
 	    c.gridy = 3;
 	    c.anchor = GridBagConstraints.EAST;
-	    this.add(new JLabel("Bastidor: "), c);
+	    this.add(new JLabel("Concesionario: "), c);
 	    
 		c.gridx = 1;
 	    c.gridy = 3;
 	    c.anchor = GridBagConstraints.WEST;
-		this.add(jtfBastidor, c);
+		this.add(jcbConcesionario, c);
 		
-		// Inclusiï¿½n del campo "Modelo"
+		// Inclusiï¿½n del campo "IdCoche"
+		List<Coche> coches = CocheControlador.getControlador().findAll();
+		
+		for (Coche coch : coches) {
+			jcbCoche.addItem(coch);
+		}
+		
 		c.gridx = 0;
 	    c.gridy = 4;
 	    c.anchor = GridBagConstraints.EAST;
-	    this.add(new JLabel("Modelo: "), c);
+	    this.add(new JLabel("Coche: "), c);
 	    
 		c.gridx = 1;
 	    c.gridy = 4;
 	    c.anchor = GridBagConstraints.WEST;
-		this.add(jtfModelo, c);
+		this.add(jcbCoche, c);
 		
-		// Inclusiï¿½n del campo "Color"
+		// Inclusiï¿½n del campo "fecha"
 		c.gridx = 0;
 	    c.gridy = 5;
 	    c.anchor = GridBagConstraints.EAST;
-	    this.add(new JLabel("Color: "), c);
+	    this.add(new JLabel("Fecha: "), c);
 	    
 		c.gridx = 1;
 	    c.gridy = 5;
 	    c.anchor = GridBagConstraints.WEST;
-		this.add(jtfColor, c);
+		this.add(jtfFecha, c);
 		
-		
-		
+		// Inclusiï¿½n del campo "precioVenta"
 		c.gridx = 0;
 	    c.gridy = 6;
+	    c.anchor = GridBagConstraints.EAST;
+	    this.add(new JLabel("Precio Venta: "), c);
+	    
+		c.gridx = 1;
+	    c.gridy = 6;
+	    c.anchor = GridBagConstraints.WEST;
+		this.add(jtfPrecio, c);
+		
+		
+		
+		c.gridx = 0;
+	    c.gridy = 7;
 	    c.gridwidth = 2;
 	    c.anchor = GridBagConstraints.CENTER;
 	    c.insets = new Insets(25, 0, 0, 0);
@@ -224,10 +251,11 @@ public class PanelGestionCoche extends JPanel {
 	 */
 	private void limpiarPantalla() {
 		this.jtfId.setText("");
-		this.jcbIdFab.setSelectedIndex(0);
-		this.jtfBastidor.setText("");
-		this.jtfModelo.setText("");
-		this.jtfColor.setText("");
+		this.jcbCliente.setSelectedIndex(0);
+		this.jcbConcesionario.setSelectedIndex(0);
+		this.jcbCoche.setSelectedIndex(0);
+		this.jtfFecha.setText("");
+		this.jtfPrecio.setText("");
 		
 	}
 	
@@ -237,24 +265,27 @@ public class PanelGestionCoche extends JPanel {
 	 * 
 	 */
 	private void guardar () throws ParseException {
-		Coche nuevoRegistro = new Coche();
+		Venta nuevoRegistro = new Venta();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		
 		if (this.jtfId.getText().trim().equals("")) 
 			nuevoRegistro.setId(0);
 		else 
 			nuevoRegistro.setId(Integer.parseInt(this.jtfId.getText()));
 		
-		nuevoRegistro.setFabricante( (Fabricante) this.jcbIdFab.getSelectedItem());		
-		nuevoRegistro.setBastidor(this.jtfBastidor.getText());
-		nuevoRegistro.setModelo(this.jtfModelo.getText());
-		nuevoRegistro.setColor(this.jtfColor.getText());
+		nuevoRegistro.setCliente((Cliente) this.jcbCliente.getSelectedItem());
+		nuevoRegistro.setConcesionario((Concesionario) this.jcbConcesionario.getSelectedItem());
+		nuevoRegistro.setCoche((Coche) this.jcbCoche.getSelectedItem());
+		nuevoRegistro.setFecha(sdf.parse((this.jtfFecha.getText())));
+		nuevoRegistro.setPrecioVenta((Float.parseFloat(this.jtfPrecio.getText())));
+		
 		
 		
 		if (nuevoRegistro.getId() == 0) {
-			CocheControlador.getControlador().persist(nuevoRegistro);
+			VentaControlador.getControlador().persist(nuevoRegistro);
 		}
 		else {
-			CocheControlador.getControlador().merge(nuevoRegistro);
+			VentaControlador.getControlador().merge(nuevoRegistro);
 		}
 		
 		this.jtfId.setText("" + nuevoRegistro.getId());
@@ -268,7 +299,7 @@ public class PanelGestionCoche extends JPanel {
 	 * 
 	 * @return
 	 */
-	private Coche eliminar () {
+	private Venta eliminar () {
 		String respuestas[] = new String[] {"Sí", "No"};
 		int opcionElegida = JOptionPane.showOptionDialog(null, 
 				"¿Realmente desea eliminar el registro?", "Eliminación del registro", 
@@ -278,11 +309,11 @@ public class PanelGestionCoche extends JPanel {
 		        respuestas, respuestas[1]);
 
 	    if(opcionElegida == 0) {
-	    	Coche nuevoAMostrar = CocheControlador.getControlador().findPrevious(actual);
+	    	Venta nuevoAMostrar = VentaControlador.getControlador().findPrevious(actual);
 	    	if (nuevoAMostrar == null) {
-	    		nuevoAMostrar = CocheControlador.getControlador().findNext(actual);
+	    		nuevoAMostrar = VentaControlador.getControlador().findNext(actual);
 	    	}
-	    	CocheControlador.getControlador().remove(actual);
+	    	VentaControlador.getControlador().remove(actual);
 			JOptionPane.showMessageDialog(this, "Eliminación correcta");
 
 	    	if (nuevoAMostrar != null) {
@@ -305,15 +336,15 @@ public class PanelGestionCoche extends JPanel {
 		jbt.addActionListener(new ActionListener () {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				Coche obtenido = null;
+				Venta obtenido = null;
 				if (funcion == LOAD_FIRST) 
-					obtenido = CocheControlador.getControlador().findFirst();
+					obtenido = VentaControlador.getControlador().findFirst();
 				if (funcion == LOAD_PREV) 
-					obtenido = CocheControlador.getControlador().findPrevious(actual);
+					obtenido = VentaControlador.getControlador().findPrevious(actual);
 				if (funcion == LOAD_NEXT) 
-					obtenido = CocheControlador.getControlador().findNext(actual);
+					obtenido = VentaControlador.getControlador().findNext(actual);
 				if (funcion == LOAD_LAST) 
-					obtenido = CocheControlador.getControlador().findLast();
+					obtenido = VentaControlador.getControlador().findLast();
 				if (funcion == NEW) 
 					nuevo();
 				if (funcion == SAVE)
@@ -341,10 +372,12 @@ public class PanelGestionCoche extends JPanel {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		if (this.actual != null) {
 			this.jtfId.setText("" + this.actual.getId());
-			this.jcbIdFab.setSelectedItem(this.actual.getFabricante());
-			this.jtfBastidor.setText(this.actual.getBastidor());
-			this.jtfModelo.setText(this.actual.getModelo());
-			this.jtfColor.setText(this.actual.getColor());
+			this.jcbCliente.setSelectedItem(this.actual.getCliente());
+			this.jcbConcesionario.setSelectedItem(this.actual.getConcesionario());
+			this.jcbCoche.setSelectedItem(this.actual.getCoche());
+			this.jtfFecha.setText(sdf.format(this.actual.getFecha()));
+			this.jtfPrecio.setText(Float.toString(this.actual.getPrecioVenta()));
+			
 			
 			
 		}

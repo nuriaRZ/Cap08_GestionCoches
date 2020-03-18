@@ -88,4 +88,9 @@ public class Concesionario extends Entidad implements Serializable {
 		return venta;
 	}
 
+	@Override
+	public String toString() {
+		return cif;
+	}
+
 }

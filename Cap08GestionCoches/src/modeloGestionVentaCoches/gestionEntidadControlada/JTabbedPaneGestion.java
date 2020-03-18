@@ -30,6 +30,8 @@ public class JTabbedPaneGestion extends JTabbedPane {
 		this.addTab("Concesionario", icono, new PanelGestionConcesionario(), "Concesionario");
 		this.addTab("Fabricante", icono, new PanelGestionFabricante(), "Fabricante");
 		this.addTab("Cliente", icono, new PanelGestionCliente(), "Cliente");
+		this.addTab("Coche", icono, new PanelGestionCoche(), "Coche");
+		this.addTab("Venta", icono, new PanelGestionVenta(), "Venta");
 		this.setSelectedIndex(0);  
 	}	
 }

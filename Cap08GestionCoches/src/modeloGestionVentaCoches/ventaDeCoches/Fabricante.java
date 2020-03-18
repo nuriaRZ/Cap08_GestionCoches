@@ -78,4 +78,19 @@ public class Fabricante extends Entidad implements Serializable {
 		return coch;
 	}
 
+	@Override
+	public String toString() {
+		return   nombre ;
+	}
+	
+	public boolean equals(Object obj) {
+		Fabricante f = (Fabricante) obj;
+		if (this.id == f.id) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+
 }
