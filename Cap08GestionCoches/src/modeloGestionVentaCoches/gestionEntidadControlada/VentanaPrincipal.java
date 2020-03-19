@@ -1,15 +1,24 @@
 package modeloGestionVentaCoches.gestionEntidadControlada;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JToolBar;
 
 import modeloGestionVentaCoches.utils.Apariencia;
 import modeloGestionVentaCoches.utils.CacheImagenes;
+import modeloGestionVentaCoches.gestionEntidadControlada.ToolBar;
 
 
 public class VentanaPrincipal extends JFrame {
@@ -20,7 +29,9 @@ public class VentanaPrincipal extends JFrame {
 
 	private CacheImagenes cacheImagenes;
 	public static BufferedImage iconoApp;
-
+	private JTabbedPaneGestion jTabbedPane = new JTabbedPaneGestion();
+	public static JToolBar toolbar = new JToolBar(ToolBar.NORTH_WEST);
+	
 	// Establecer la apariencia típica de Windows
 	static {
 		Apariencia.setAparienciasOrdenadas(Apariencia.aparienciasOrdenadas);
@@ -40,8 +51,36 @@ public class VentanaPrincipal extends JFrame {
 		
 		agregarGestionCierreAplicacion();
 		
+		this.getContentPane().setLayout(new BorderLayout());
+		this.getContentPane().add(jTabbedPane, BorderLayout.CENTER);
+		this.getContentPane().add(toolbar, BorderLayout.NORTH);
+		this.setJMenuBar(getMyMenuBar());
+		
 		// Construcción elementos básicos sobre el ContentPanel
-		this.setContentPane(new JTabbedPaneGestion());
+		//this.setContentPane(new JTabbedPaneGestion());
+	}
+	
+	private JMenuBar getMyMenuBar() {
+		JMenuBar menuBar = new JMenuBar();
+		JMenu menuGestion = new JMenu("Gestión");
+		
+		String opciones[] = new String[] {"Concesionario", "Fabricante", "Cliente", "Coche", "Venta"};
+		
+		for (int i = 0; i < opciones.length; i++) {
+			final int iFinal = i;
+			JMenuItem item = new JMenuItem(opciones[i]);
+			item.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					jTabbedPane.setSelectedIndex(iFinal);
+					
+				}
+			});
+			menuGestion.add(item);
+		}
+		menuBar.add(menuGestion);
+		return menuBar;
 	}
 
 	

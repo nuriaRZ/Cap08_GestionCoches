@@ -125,4 +125,15 @@ public class Cliente extends Entidad implements Serializable {
 		return   apellidos + ", " + nombre;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		Cliente cli = (Cliente) obj;
+		if (this.id == cli.id) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+
 }

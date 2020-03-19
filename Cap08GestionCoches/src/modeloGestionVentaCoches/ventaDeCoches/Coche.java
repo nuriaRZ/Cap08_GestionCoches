@@ -106,6 +106,17 @@ public class Coche extends Entidad implements Serializable {
 		return  bastidor;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		Coche coch = (Coche) obj;
+		if (this.id == coch.id) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+
 	
 
 }

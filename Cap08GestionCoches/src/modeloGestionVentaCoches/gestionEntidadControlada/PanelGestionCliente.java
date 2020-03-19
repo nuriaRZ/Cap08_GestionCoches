@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -39,7 +40,7 @@ public class PanelGestionCliente extends JPanel {
 	JTextField jtfApellidos = new JTextField(40);
 	JTextField jtfLocalidad = new JTextField(40);
 	JTextField jtfFechaNac = new JTextField(20);
-	JTextField jtfActivo = new JTextField(40);
+	JCheckBox jcbActivo = new JCheckBox();
 	
 	Cliente actual = null;
 	
@@ -149,7 +150,7 @@ public class PanelGestionCliente extends JPanel {
 		c.gridx = 1;
 	    c.gridy = 7;
 	    c.anchor = GridBagConstraints.WEST;
-		this.add(jtfActivo, c);
+		this.add(jcbActivo, c);
 		
 		c.gridx = 0;
 	    c.gridy = 8;
@@ -239,7 +240,7 @@ public class PanelGestionCliente extends JPanel {
 		this.jtfApellidos.setText("");
 		this.jtfLocalidad.setText("");
 		this.jtfFechaNac.setText("");
-		this.jtfActivo.setText("");
+		this.jcbActivo.setSelected(true);
 	}
 	
 	
@@ -260,7 +261,7 @@ public class PanelGestionCliente extends JPanel {
 		nuevoRegistro.setApellidos(this.jtfApellidos.getText());
 		nuevoRegistro.setLocalidad(this.jtfLocalidad.getText());
 		nuevoRegistro.setFechaNac(sdf.parse(this.jtfFechaNac.getText()));
-		nuevoRegistro.setActivo(Boolean.getBoolean(this.jtfActivo.getText()));
+		nuevoRegistro.setActivo(this.jcbActivo.isSelected());
 		
 		if (nuevoRegistro.getId() == 0) {
 			ClienteControlador.getControlador().persist(nuevoRegistro);
@@ -359,7 +360,7 @@ public class PanelGestionCliente extends JPanel {
 			this.jtfLocalidad.setText(this.actual.getLocalidad());
 			
 			this.jtfFechaNac.setText(sdf.format(this.actual.getFechaNac()));
-			this.jtfActivo.setText(Boolean.toString(this.actual.getActivo()));
+			this.jcbActivo.setSelected(this.actual.getActivo());
 		}
 	}
 }
