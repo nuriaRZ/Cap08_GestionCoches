@@ -169,7 +169,7 @@ public class PanelGestionCliente extends JPanel {
 	private JPanel getPanelNavegacion () {
 		JPanel pnl = new JPanel();
 
-		pnl.setBackground(Color.RED);
+		pnl.setBackground(Color.decode("#c8d7e0"));
 		
 		JButton jbtPrimero = new JButton("Primero");
 		asignarFuncion(jbtPrimero, LOAD_FIRST);
@@ -200,7 +200,7 @@ public class PanelGestionCliente extends JPanel {
 	private JPanel getPanelAcciones () {
 		JPanel pnl = new JPanel();
 		
-		pnl.setBackground(Color.red);
+		pnl.setBackground(Color.decode("#c8d7e0"));
 
 		JButton jbtNuevo = new JButton("Nuevo");
 		asignarFuncion(jbtNuevo, NEW);
