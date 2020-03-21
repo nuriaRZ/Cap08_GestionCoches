@@ -17,11 +17,14 @@ public class ToolBar extends JToolBar {
 	private static final long serialVersionUID = 1L;
 	
 	public ToolBar () {
-		this.add(creaBoton("", "next.png", "Concesionario"));
-		this.add(creaBoton("", "next.png", "Fabricante"));
-		this.add(creaBoton("", "next.png", "Cliente"));
-		this.add(creaBoton("", "next.png", "Coche"));
-		this.add(creaBoton("", "next.png", "Venta"));
+		
+		String opciones[] = new String[] {"Concesionario", "Fabricante", "Cliente", "Coche", "Venta"};
+		
+		for (int i = 0; i < opciones.length; i++) {
+			final int iFinal = i;
+			this.add(creaBoton(i,"", "next.png", opciones[i]));
+			
+		}
 		
 	}
 	
@@ -32,19 +35,19 @@ public class ToolBar extends JToolBar {
 	 * @param icono
 	 * @return
 	 */
-	private JButton creaBoton(String titulo, String icono, String toolTip) {
+	private JButton creaBoton(int id, String titulo, String icono, String toolTip) {
         JButton jbt = new JButton();
         
         jbt.setText(titulo);
         jbt.setToolTipText(toolTip);
-        
-        jbt.addActionListener(new ActionListener(){
-            @Override
-            public void actionPerformed(ActionEvent e) {
-            	System.out.println("Has hecho clic en el botón: \"" + toolTip + "\"");
-            }
-        });
-        
+        	jbt.addActionListener(new ActionListener() {
+		
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaPrincipal.jTabbedPane.setSelectedIndex(id);
+				
+			}
+		});
         try {
         	jbt.setIcon(CacheImagenes.getCacheImagenes().getIcono(icono));  
           } catch (Exception ex) {
@@ -92,5 +95,7 @@ public class ToolBar extends JToolBar {
 		jcb.setMaximumSize(new Dimension(100, 75));
 		return jcb;
 	}
+	
+	
 }
 

@@ -15,6 +15,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
+import javax.swing.JToolTip;
 
 import modeloGestionVentaCoches.utils.Apariencia;
 import modeloGestionVentaCoches.utils.CacheImagenes;
@@ -29,14 +30,28 @@ public class VentanaPrincipal extends JFrame {
 
 	private CacheImagenes cacheImagenes;
 	public static BufferedImage iconoApp;
-	private JTabbedPaneGestion jTabbedPane = new JTabbedPaneGestion();
-	public static JToolBar toolbar = new JToolBar(ToolBar.NORTH_WEST);
+	static JTabbedPaneGestion jTabbedPane = new JTabbedPaneGestion();
+	public static VentanaPrincipal instance = null;
+	
 	
 	// Establecer la apariencia típica de Windows
 	static {
 		Apariencia.setAparienciasOrdenadas(Apariencia.aparienciasOrdenadas);
 	}
 	
+	public static VentanaPrincipal getInstance() {
+		if (instance == null) {
+			instance = new VentanaPrincipal();
+		}
+		return instance;
+	}
+	
+	public JTabbedPane getJTabbedPane() {
+		return this.jTabbedPane;
+	}
+	
+	
+
 	
 	
 	public VentanaPrincipal () {
@@ -53,7 +68,7 @@ public class VentanaPrincipal extends JFrame {
 		
 		this.getContentPane().setLayout(new BorderLayout());
 		this.getContentPane().add(jTabbedPane, BorderLayout.CENTER);
-		this.getContentPane().add(toolbar, BorderLayout.NORTH);
+		this.add(new ToolBar(), BorderLayout.NORTH);
 		this.setJMenuBar(getMyMenuBar());
 		
 		// Construcción elementos básicos sobre el ContentPanel
