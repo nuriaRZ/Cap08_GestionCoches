@@ -3,10 +3,6 @@ package modeloGestionVentaCoches.ventaDeCoches;
 import java.io.Serializable;
 import javax.persistence.*;
 
-import modeloGestionVentaCoches.Entidad;
-
-import java.util.List;
-
 
 /**
  * The persistent class for the concesionario database table.
@@ -14,7 +10,7 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="Concesionario.findAll", query="SELECT c FROM Concesionario c")
-public class Concesionario extends Entidad implements Serializable {
+public class Concesionario extends modeloGestionVentaCoches.Entidad implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -23,13 +19,12 @@ public class Concesionario extends Entidad implements Serializable {
 
 	private String cif;
 
+	@Lob
+	private byte[] imagen;
+
 	private String localidad;
 
 	private String nombre;
-
-	//bi-directional many-to-one association to Venta
-	@OneToMany(mappedBy="concesionario")
-	private List<Venta> ventas;
 
 	public Concesionario() {
 	}
@@ -50,6 +45,14 @@ public class Concesionario extends Entidad implements Serializable {
 		this.cif = cif;
 	}
 
+	public byte[] getImagen() {
+		return this.imagen;
+	}
+
+	public void setImagen(byte[] imagen) {
+		this.imagen = imagen;
+	}
+
 	public String getLocalidad() {
 		return this.localidad;
 	}
@@ -65,43 +68,5 @@ public class Concesionario extends Entidad implements Serializable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
-	public List<Venta> getVentas() {
-		return this.ventas;
-	}
-
-	public void setVentas(List<Venta> ventas) {
-		this.ventas = ventas;
-	}
-
-	public Venta addVenta(Venta venta) {
-		getVentas().add(venta);
-		venta.setConcesionario(this);
-
-		return venta;
-	}
-
-	public Venta removeVenta(Venta venta) {
-		getVentas().remove(venta);
-		venta.setConcesionario(null);
-
-		return venta;
-	}
-
-	@Override
-	public String toString() {
-		return cif;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		Concesionario c = (Concesionario) obj;
-		if (this.id == c.id) {
-			return true;
-		}
-		return false;
-	}
-	
-	
 
 }
